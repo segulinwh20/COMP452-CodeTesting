@@ -81,6 +81,7 @@ public class GameOverPanel extends JPanel {
         }
 
         if(result.humanWasPlaying){
+            //This should definitely be a separate method ~Jackson
             // write stats to file
             try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.FILENAME, true))) {
 

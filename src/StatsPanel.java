@@ -36,6 +36,7 @@ public class StatsPanel extends JPanel {
         resultsPanel.setLayout(new GridLayout(0, 2));
         resultsPanel.add(new JLabel("Guesses"));
         resultsPanel.add(new JLabel("Games"));
+        //Logic in here could probably be pulled out ~ Jackson
         for(int binIndex=0; binIndex<BIN_EDGES.length; binIndex++){
             String binName;
             if(binIndex == BIN_EDGES.length-1){
@@ -95,6 +96,7 @@ public class StatsPanel extends JPanel {
 
         GameStats stats = new StatsFile();
 
+        //maybe refactor this somehow? ~Jackson
         for(int binIndex=0; binIndex<BIN_EDGES.length; binIndex++){
             final int lowerBound = BIN_EDGES[binIndex];
             int numGames = 0;

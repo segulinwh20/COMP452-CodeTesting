@@ -20,6 +20,7 @@ public class ComputerGuessesPanel extends JPanel {
     private int upperBound; // correct number is <= upperBound
     private int lowerBound; // correct number is >= lowerBound
 
+    //all the logic is in this constructor, that seems problematic ~Jackson
     public ComputerGuessesPanel(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback){
         numGuesses = 0;
         upperBound = 1000;
@@ -41,6 +42,7 @@ public class ComputerGuessesPanel extends JPanel {
 
         JButton lowerBtn = new JButton("Lower");
         lowerBtn.addActionListener(e -> {
+            //could this be its own method? ~Jackson
             upperBound = Math.min(upperBound, lastGuess);
 
             lastGuess = (lowerBound + upperBound + 1) / 2;
