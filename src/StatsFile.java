@@ -13,6 +13,8 @@ import java.util.TreeMap;
  *
  * Returns the number of games *within the last 30 days* where the person took a given number of guesses
  */
+
+//TODO: check refactoring of this class
 public class StatsFile extends GameStats {
     public static final String FILENAME = "guess-the-number-stats.csv";
 
@@ -24,27 +26,15 @@ public class StatsFile extends GameStats {
     public StatsFile(){
         statsMap = new TreeMap<>();
         LocalDateTime limit = LocalDateTime.now().minusDays(30);
+        inputData(limit);
+    }
 
+    private void inputData(LocalDateTime limit){
         try (CSVReader csvReader = new CSVReader(new FileReader(FILENAME))) {
             String[] values = null;
             while ((values = csvReader.readNext()) != null) {
                 // values should have the date and the number of guesses as the two fields
-                try {
-                    LocalDateTime timestamp = LocalDateTime.parse(values[0]);
-                    int numGuesses = Integer.parseInt(values[1]);
-
-                    if (timestamp.isAfter(limit)) {
-                        statsMap.put(numGuesses, 1 + statsMap.getOrDefault(numGuesses, 0));
-                    }
-                }
-                catch(NumberFormatException nfe){
-                    // NOTE: In a full implementation, we would log this error and possibly alert the user
-                    throw nfe;
-                }
-                catch(DateTimeParseException dtpe){
-                    // NOTE: In a full implementation, we would log this error and possibly alert the user
-                    throw dtpe;
-                }
+                parseFile(values, limit);
             }
         } catch (CsvValidationException e) {
             // NOTE: In a full implementation, we would log this error and alert the user
@@ -52,6 +42,25 @@ public class StatsFile extends GameStats {
         } catch (IOException e) {
             // NOTE: In a full implementation, we would log this error and alert the user
             // NOTE: For this project, you do not need unit tests for handling this exception.
+        }
+    }
+
+    private void parseFile(String[] values, LocalDateTime limit) {
+        try {
+            LocalDateTime timestamp = LocalDateTime.parse(values[0]);
+            int numGuesses = Integer.parseInt(values[1]);
+
+            if (timestamp.isAfter(limit)) {
+                statsMap.put(numGuesses, 1 + statsMap.getOrDefault(numGuesses, 0));
+            }
+        }
+        catch(NumberFormatException nfe){
+            // NOTE: In a full implementation, we would log this error and possibly alert the user
+            throw nfe;
+        }
+        catch(DateTimeParseException dtpe){
+            // NOTE: In a full implementation, we would log this error and possibly alert the user
+            throw dtpe;
         }
     }
 

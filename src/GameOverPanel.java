@@ -68,10 +68,12 @@ public class GameOverPanel extends JPanel {
     /**
      * Sets the game results, updates the UI, and saves results to the log file (if human was playing)
      */
-    // TODO: refactor this method
+    // REFACTORED THIS
     public void setGameResults(GameResult result){
         this.gameResult = result;
+    }
 
+    public void updateUI(GameResult result){
         answerTxt.setText("The answer was " + result.correctValue + ".");
         if(result.numGuesses == 1){
             numGuessesTxt.setText((result.humanWasPlaying ? "You" : "I") + " guessed it on the first try!");
@@ -79,21 +81,18 @@ public class GameOverPanel extends JPanel {
         else {
             numGuessesTxt.setText("It took " + (result.humanWasPlaying ? "you" : "me") + " " + result.numGuesses + " guesses.");
         }
+    }
+    public void writeToFile(GameResult result){
+        try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.FILENAME, true))) {
 
-        if(result.humanWasPlaying){
-            //This should definitely be a separate method ~Jackson
-            // write stats to file
-            try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.FILENAME, true))) {
+            String [] record = new String[2];
+            record[0] = LocalDateTime.now().toString();
+            record[1] = Integer.toString(result.numGuesses);
 
-                String [] record = new String[2];
-                record[0] = LocalDateTime.now().toString();
-                record[1] = Integer.toString(result.numGuesses);
-
-                writer.writeNext(record);
-            } catch (IOException e) {
-                // NOTE: In a full implementation, we would log this error and possibly alert the user
-                // NOTE: For this project, you do not need unit tests for handling this exception.
-            }
+            writer.writeNext(record);
+        } catch (IOException e) {
+            // NOTE: In a full implementation, we would log this error and possibly alert the user
+            // NOTE: For this project, you do not need unit tests for handling this exception.
         }
     }
 }
