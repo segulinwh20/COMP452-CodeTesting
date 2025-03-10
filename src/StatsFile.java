@@ -31,7 +31,7 @@ public class StatsFile extends GameStats {
 
     private void inputData(LocalDateTime limit){
         try (CSVReader csvReader = new CSVReader(new FileReader(FILENAME))) {
-            String[] values = null;
+            String[] values;
             while ((values = csvReader.readNext()) != null) {
                 // values should have the date and the number of guesses as the two fields
                 parseFile(values, limit);
