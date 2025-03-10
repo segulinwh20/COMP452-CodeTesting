@@ -93,7 +93,6 @@ public class StatsPanel extends JPanel {
                     binName = Integer.toString(BIN_EDGES[binIndex]);
                 }
             }
-
             panel.add(new JLabel(binName));
             JLabel result = new JLabel("--");
             resultsLabels.add(result);
