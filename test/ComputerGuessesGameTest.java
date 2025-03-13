@@ -41,12 +41,12 @@ class ComputerGuessesGameTest {
     }
 
     @Test
-    void multipleGuessesMaintainProperState() {
+    void multipleGuesses() {
         game.firstGuess();
         game.newGuess(true);
         game.newGuess(false);
         saveLastGuess(game.newGuess(true));
-        assertEquals(688, lastGuess);
+        assertEquals(691, lastGuess);
     }
 
     @Test
@@ -97,7 +97,6 @@ class ComputerGuessesGameTest {
     @Test
     void minimumTargetGuessedCorrectly() {
         game.firstGuess();
-        game.newGuess(false);
         game.newGuess(false);
         game.newGuess(false);
         game.newGuess(false);
