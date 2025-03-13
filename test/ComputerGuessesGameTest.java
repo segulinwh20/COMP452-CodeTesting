@@ -30,7 +30,7 @@ class ComputerGuessesGameTest {
     void newGuessAdjustsRangeWhenHigher() {
         game.firstGuess();
         saveLastGuess(game.newGuess(true));
-        assertEquals(751, lastGuess);
+        assertEquals(752, lastGuess);
     }
 
     @Test
@@ -65,11 +65,11 @@ class ComputerGuessesGameTest {
         saveLastGuess(game.firstGuess());
         assertEquals(501, lastGuess);
         saveLastGuess(game.newGuess(true));
-        assertEquals(751, lastGuess);
+        assertEquals(752, lastGuess);
         saveLastGuess(game.newGuess(true));
-        assertEquals(876, lastGuess);
+        assertEquals(877, lastGuess);
         saveLastGuess(game.newGuess(false));
-        assertEquals(814, lastGuess);
+        assertEquals(815, lastGuess);
         game.finishGame(result -> resultHolder = result);
         assertNotNull(resultHolder);
         assertEquals(4, resultHolder.numGuesses);
@@ -77,7 +77,7 @@ class ComputerGuessesGameTest {
     }
 
     @Test
-    void targetOneAwayFromFirstGuess() {
+    void targetOneAboveFirstGuess() {
         game.firstGuess();
         game.newGuess(true);
         game.newGuess(false);
@@ -87,11 +87,22 @@ class ComputerGuessesGameTest {
         game.newGuess(false);
         game.newGuess(false);
         game.newGuess(false);
-        game.newGuess(false);
-        game.newGuess(false);
-        game.newGuess(false);
         saveLastGuess(game.newGuess(false));
         assertEquals(502, lastGuess);
+    }
+
+    @Test
+    void targetOneBelowFirstGuess() {
+        game.firstGuess();
+        game.newGuess(false);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        saveLastGuess(game.newGuess(true));
+        assertEquals(500, lastGuess);
     }
 
     @Test
@@ -121,5 +132,49 @@ class ComputerGuessesGameTest {
         game.newGuess(true);
         saveLastGuess(game.newGuess(true));
         assertEquals(999, lastGuess);
+    }
+
+    @Test
+    void lowerBoundRespected() {
+        game.firstGuess();
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        game.newGuess(false);
+        saveLastGuess(game.newGuess(false));
+        assertTrue(lastGuess > 2);
+    }
+
+    @Test
+    void upperBoundRespected() {
+        game.firstGuess();
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        game.newGuess(true);
+        saveLastGuess(game.newGuess(true));
+        assertTrue(lastGuess < 1000);
     }
 }
