@@ -26,7 +26,7 @@ public class ComputerGuessesGame {
         if(isHigher){
             lowerBound = Math.max(lowerBound, lastGuess + 1) ;
         } else {
-            upperBound = Math.min(upperBound, lastGuess + 1);
+            upperBound = Math.min(upperBound, lastGuess);
         }
         lastGuess = (lowerBound + upperBound + 1) / 2;
         numGuesses += 1;

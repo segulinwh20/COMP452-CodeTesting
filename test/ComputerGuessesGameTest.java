@@ -106,7 +106,6 @@ class ComputerGuessesGameTest {
         game.newGuess(false);
         game.newGuess(false);
         game.newGuess(false);
-        game.newGuess(false);
         saveLastGuess(game.newGuess(false));
         assertEquals(2, lastGuess);
     }
@@ -114,9 +113,6 @@ class ComputerGuessesGameTest {
     @Test
     void maximumTargetGuessedCorrectly() {
         game.firstGuess();
-        game.newGuess(true);
-        game.newGuess(true);
-        game.newGuess(true);
         game.newGuess(true);
         game.newGuess(true);
         game.newGuess(true);
