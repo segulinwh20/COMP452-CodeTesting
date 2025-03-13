@@ -9,18 +9,15 @@ public class ComputerGuessesGame {
     private int upperBound; // correct number is <= upperBound
     private int lowerBound; // correct number is >= lowerBound
 
-    ComputerGuessesGame(){
-        numGuesses = 0;
-        upperBound = 1000;
-        lowerBound = 1;
-    }
-
     public void finishGame(Consumer<GameResult> gameFinishedCallback){
         GameResult result = new GameResult(false, lastGuess, numGuesses);
         gameFinishedCallback.accept(result);
     }
 
     public String firstGuess(){
+        numGuesses = 0;
+        upperBound = 1000;
+        lowerBound = 1;
         lastGuess = (lowerBound + upperBound + 1) / 2;
         return ("I guess " + lastGuess + ".");
     }
