@@ -110,7 +110,7 @@ public class StatsPanel extends JPanel {
     private void updateResultsPanel(){
         clearResults();
 
-        GameStats stats = new StatsFile();
+        GameStats stats = new StatsFile("guess-the-number-stats.csv");
 
         for(int binIndex=0; binIndex<BIN_EDGES.length; binIndex++){
             final int lowerBound = BIN_EDGES[binIndex];

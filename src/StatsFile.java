@@ -23,14 +23,14 @@ public class StatsFile extends GameStats {
     // the past 30 days where the person took that many guesses
     private SortedMap<Integer, Integer> statsMap;
 
-    public StatsFile(){
+    public StatsFile(String filename){
         statsMap = new TreeMap<>();
         LocalDateTime limit = LocalDateTime.now().minusDays(30);
-        inputData(limit);
+        inputData(filename, limit);
     }
 
-    private void inputData(LocalDateTime limit){
-        try (CSVReader csvReader = new CSVReader(new FileReader(FILENAME))) {
+    private void inputData(String filename, LocalDateTime limit){
+        try (CSVReader csvReader = new CSVReader(new FileReader(filename))) {
             String[] values;
             while ((values = csvReader.readNext()) != null) {
                 // values should have the date and the number of guesses as the two fields

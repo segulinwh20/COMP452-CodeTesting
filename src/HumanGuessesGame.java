@@ -30,7 +30,7 @@ public class HumanGuessesGame {
         if(value > target){
             return GuessResult.HIGH;
         }
-
+        gameIsDone = true;
         return GuessResult.CORRECT;
     }
 
@@ -40,5 +40,9 @@ public class HumanGuessesGame {
 
     boolean isDone(){
         return gameIsDone;
+    }
+
+    int getTargetForTest(){
+        return target;
     }
 }
